@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>vn.auction</groupId>
+    <groupId>com.auction</groupId>
     <artifactId>auction-app</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
@@ -75,7 +75,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>${javafx.maven.plugin.version}</version>
                 <configuration>
-                    <mainClass>vn.auction.client.ClientApp</mainClass>
+                    <mainClass>com.auction.client.ClientApp</mainClass>
                 </configuration>
             </plugin>
 
@@ -85,7 +85,7 @@
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>${exec.maven.plugin.version}</version>
                 <configuration>
-                    <mainClass>vn.auction.server.ServerMain</mainClass>
+                    <mainClass>com.auction.server.ServerMain</mainClass>
                 </configuration>
             </plugin>
 
@@ -154,4 +154,3 @@
         </plugins>
     </build>
 </project>
-
