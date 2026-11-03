@@ -1,6 +1,6 @@
-package client.util;
+package com.auction.client.util;
 
-import client.controller.ScreenController;
+import com.auction.client.controller.ScreenController;
 import java.io.IOException;
 import java.net.URL;
 import javafx.fxml.FXMLLoader;

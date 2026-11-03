@@ -1,4 +1,4 @@
-﻿package com.auction.common.protocol;
+package com.auction.common.protocol;
 
 /**
  * Loại sự kiện phát thanh (broadcast) thời gian thực trong phòng đấu giá.

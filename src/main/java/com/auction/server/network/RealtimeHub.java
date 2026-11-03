@@ -1,4 +1,4 @@
-﻿package com.auction.server.network;
+package com.auction.server.network;
 
 import java.util.Collections;
 import java.util.Map;

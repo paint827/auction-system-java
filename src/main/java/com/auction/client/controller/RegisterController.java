@@ -1,8 +1,8 @@
-package client.controller;
+package com.auction.client.controller;
 
-import client.model.ClientSession;
-import client.util.SceneNavigator;
-import client.util.Screen;
+import com.auction.client.model.ClientSession;
+import com.auction.client.util.SceneNavigator;
+import com.auction.client.util.Screen;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;

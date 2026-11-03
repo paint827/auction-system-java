@@ -1,4 +1,4 @@
-package client.network;
+package com.auction.client.network;
 
 import java.io.IOException;
 

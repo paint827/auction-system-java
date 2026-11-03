@@ -1,4 +1,4 @@
-package client.controller;
+package com.auction.client.controller;
 
 public interface ScreenController {
 

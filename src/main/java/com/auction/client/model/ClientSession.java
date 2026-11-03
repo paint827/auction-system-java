@@ -1,4 +1,4 @@
-package client.model;
+package com.auction.client.model;
 
 public final class ClientSession {
 

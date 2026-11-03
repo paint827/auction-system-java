@@ -1,4 +1,4 @@
-﻿package com.auction.server;
+package com.auction.server;
 
 import java.io.IOException;
 import java.net.ServerSocket;

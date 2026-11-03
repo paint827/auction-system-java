@@ -1,4 +1,4 @@
-package client;
+package com.auction.client;
 
 // Class này KHÔNG extends Application, để chạy được từ IntelliJ
 // mà không bị lỗi "JavaFX runtime components are missing".

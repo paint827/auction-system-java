@@ -1,4 +1,4 @@
-package client.util;
+package com.auction.client.util;
 
 public enum Screen {
     LOGIN("LoginView.fxml", "Đăng nhập"),

@@ -1,4 +1,4 @@
-package client.util;
+package com.auction.client.util;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;

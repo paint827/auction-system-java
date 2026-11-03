@@ -1,4 +1,4 @@
-package client.util;
+package com.auction.client.util;
 
 import javafx.scene.control.Alert;
 

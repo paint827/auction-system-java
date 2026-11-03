@@ -1,4 +1,4 @@
-﻿package com.auction.common;
+package com.auction.common;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
