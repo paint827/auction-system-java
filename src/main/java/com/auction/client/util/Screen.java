@@ -16,8 +16,12 @@ public enum Screen {
         this.title = title;
     }
 
-    public String getFxml() { return fxml; }
-    public String getTitle() { return title; }
+    public String getFxml() {
+        return fxml;
+    }
+    public String getTitle() {
+        return title;
+    }
 
     /**
      * Trả về đường dẫn đầy đủ từ classpath để nạp FXML

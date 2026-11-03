@@ -4,11 +4,8 @@ import com.auction.client.network.NetworkClient;
 import com.auction.client.util.SceneNavigator;
 import com.auction.client.util.Screen;
 import javafx.application.Application;
-import javafx.stage.Stage;
 import javafx.scene.image.Image;
-
-import javax.swing.*;
-import java.awt.*;
+import javafx.stage.Stage;
 import java.io.InputStream;
 
 public class ClientApp extends Application {

@@ -9,7 +9,9 @@ public final class ClientSession {
 
     private ClientSession() { }
 
-    public static ClientSession getInstance() { return INSTANCE; }
+    public static ClientSession getInstance() {
+        return INSTANCE;
+    }
 
     public void login(String username, String role) {
         this.username = username;
@@ -21,7 +23,13 @@ public final class ClientSession {
         this.role = null;
     }
 
-    public boolean isLoggedIn() { return username != null; }
-    public String getUsername() { return username; }
-    public String getRole() { return role; }
+    public boolean isLoggedIn() {
+        return username != null;
+    }
+    public String getUsername() {
+        return username;
+    }
+    public String getRole() {
+        return role;
+    }
 }

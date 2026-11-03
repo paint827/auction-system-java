@@ -8,7 +8,9 @@ public final class NetworkClient {
 
     private NetworkClient() { }
 
-    public static NetworkClient getInstance() { return INSTANCE; }
+    public static NetworkClient getInstance() {
+        return INSTANCE;
+    }
 
     public void connect(String host, int port) throws IOException {
         // TODO STT5: mở Socket, tạo luồng gửi/nhận theo protocol của TV2
