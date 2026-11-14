@@ -1,4 +1,4 @@
-﻿package com.auction.common.protocol;
+package com.auction.common.protocol;
 
 /**
  * Mã lỗi chuẩn hoá trả về cho Client.

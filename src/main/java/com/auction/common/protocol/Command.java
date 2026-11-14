@@ -1,4 +1,4 @@
-﻿package com.auction.common.protocol;
+package com.auction.common.protocol;
 
 /**
  * Danh sách command được hỗ trợ trong hệ thống đấu giá.

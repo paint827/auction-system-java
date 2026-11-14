@@ -1,4 +1,4 @@
-﻿package com.auction.server.dao;
+package com.auction.server.dao;
 
 import java.io.Serializable;
 import java.util.List;

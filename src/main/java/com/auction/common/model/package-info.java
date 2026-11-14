@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Domain models và entities chung của hệ thống.
  * Phụ trách:
  * - TV1: Auction, Bid và các đối tượng lõi đấu giá.

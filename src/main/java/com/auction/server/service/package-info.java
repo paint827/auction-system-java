@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Các dịch vụ nghiệp vụ phía Server.
  * Phụ trách:
  * - TV1: AuctionService, AuctionManager, Locking, Timer settlement.

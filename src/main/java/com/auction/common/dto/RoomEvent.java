@@ -1,4 +1,4 @@
-﻿package com.auction.common.dto;
+package com.auction.common.dto;
 
 import java.io.Serializable;
 import java.util.UUID;

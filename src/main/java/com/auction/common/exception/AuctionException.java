@@ -1,4 +1,4 @@
-﻿package com.auction.common.exception;
+package com.auction.common.exception;
 
 /**
  * Ngoại lệ cơ sở cho các lỗi nghiệp vụ trong hệ thống đấu giá.

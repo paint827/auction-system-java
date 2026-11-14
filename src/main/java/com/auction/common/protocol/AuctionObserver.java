@@ -1,4 +1,4 @@
-﻿package com.auction.common.protocol;
+package com.auction.common.protocol;
 
 import com.auction.common.dto.AuctionSnapshot;
 

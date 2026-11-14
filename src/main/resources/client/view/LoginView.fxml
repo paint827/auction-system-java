@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane prefHeight="650.0" prefWidth="950.0" style="-fx-background-color: #0b111e;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.auction.client.controller.LoginController">
+
+    <!-- VÙNG TRUNG TÂM (CENTER): Tự động căn giữa tuyệt đối cả chiều ngang lẫn dọc khi Fullscreen -->
+    <center>
+        <StackPane>
+            <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="430.0" spacing="16.0" style="-fx-background-color: #151f32;                          -fx-background-radius: 24;                          -fx-border-color: rgba(255, 255, 255, 0.08);                          -fx-border-width: 1.2;                          -fx-border-radius: 24;                          -fx-padding: 36 34 32 34;                          -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 35, 0, 0, 18);">
+
+                <!-- Icon Header hình vuông bo góc phát sáng -->
+                <VBox alignment="CENTER" maxHeight="60.0" maxWidth="60.0" prefHeight="60.0" prefWidth="60.0" style="-fx-background-color: linear-gradient(to bottom right, #38bdf8, #2563eb);                              -fx-background-radius: 16;                              -fx-effect: dropshadow(gaussian, rgba(56, 189, 248, 0.45), 18, 0.2, 0, 4);">
+                    <ImageView fitHeight="36.0" fitWidth="36.0" preserveRatio="true">
+                        <image>
+                            <Image url="@../images/logo-uet-clean.png" />
+                        </image>
+                    </ImageView>
+                </VBox>
+
+                <!-- Tiêu đề & Subtitle -->
+                <VBox alignment="CENTER" spacing="4.0">
+                    <Label style="-fx-font-size: 21px; -fx-font-weight: bold; -fx-text-fill: #ffffff; -fx-font-family: 'Segoe UI', sans-serif;" text="HỆ THỐNG ĐẤU GIÁ" />
+                    <Label style="-fx-font-size: 13px; -fx-text-fill: #8194ad;" text="ĐĂNG NHẬP ĐỂ THAM GIA ĐẤU GIÁ" />
+                </VBox>
+
+                <!-- Form nhập liệu -->
+                <VBox alignment="CENTER_LEFT" maxWidth="Infinity" spacing="13.0">
+                    <padding>
+                        <Insets top="4.0" />
+                    </padding>
+
+                    <!-- Tên đăng nhập -->
+                    <VBox spacing="6.0">
+                        <Label style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #94a3b8;" text="Tên đăng nhập" />
+                        <TextField fx:id="usernameField" prefHeight="42.0" promptText="Nhập tên đăng nhập" style="-fx-background-color: #1e2b42;                                           -fx-text-fill: white;                                           -fx-prompt-text-fill: #5a6e85;                                           -fx-background-radius: 10;                                           -fx-border-color: rgba(255, 255, 255, 0.06);                                           -fx-border-radius: 10;                                           -fx-padding: 0 14;" />
+                    </VBox>
+
+                    <!-- Mật khẩu -->
+                    <VBox spacing="6.0">
+                        <Label style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #94a3b8;" text="Mật khẩu" />
+                        <PasswordField fx:id="passwordField" prefHeight="42.0" promptText="••••••••" style="-fx-background-color: #1e2b42;                                               -fx-text-fill: white;                                               -fx-prompt-text-fill: #5a6e85;                                               -fx-background-radius: 10;                                               -fx-border-color: rgba(255, 255, 255, 0.06);                                               -fx-border-radius: 10;                                               -fx-padding: 0 14;" />
+                    </VBox>
+                </VBox>
+
+                <!-- Thông báo lỗi -->
+                <Label fx:id="errorLabel" style="-fx-text-fill: #f87171; -fx-font-size: 12px;" text="" wrapText="true" />
+
+                <!-- Nút Đăng nhập -->
+                <Button defaultButton="true" maxWidth="Infinity" onAction="#onLogin" prefHeight="42.0" style="-fx-background-color: linear-gradient(to right, #0099ff, #1d6fe9);                                -fx-text-fill: white;                                -fx-font-weight: bold;                                -fx-font-size: 14px;                                -fx-background-radius: 10;                                -fx-cursor: hand;                                -fx-effect: dropshadow(gaussian, rgba(0, 153, 255, 0.35), 14, 0.1, 0, 5);" text="→ Đăng nhập" />
+
+                <!-- Đường phân cách chữ 'hoặc' -->
+                <HBox alignment="CENTER" spacing="10.0">
+                    <Separator opacity="0.12" HBox.hgrow="ALWAYS" />
+                    <Label style="-fx-text-fill: #64748b; -fx-font-size: 11.5px;" text="hoặc" />
+                    <Separator opacity="0.12" HBox.hgrow="ALWAYS" />
+                </HBox>
+
+                <!-- Chuyển hướng đăng ký -->
+                <HBox alignment="CENTER" spacing="4.0">
+                    <Label style="-fx-text-fill: #8194ad; -fx-font-size: 13px;" text="Chưa có tài khoản?" />
+                    <Hyperlink onAction="#onOpenRegister" style="-fx-text-fill: #38bdf8; -fx-font-weight: bold; -fx-font-size: 13px;" text="Tạo tài khoản" />
+                </HBox>
+            </VBox>
+        </StackPane>
+    </center>
+
+    <!-- CHÂN TRANG (BOTTOM): Luôn bám sát mép đáy màn hình cách đều 16px -->
+    <bottom>
+        <HBox alignment="CENTER">
+            <padding>
+                <Insets bottom="16.0" top="10.0" />
+            </padding>
+            <Label style="-fx-text-fill: #475569; -fx-font-size: 11.5px;" text="© 2026 UET Auction System - Secure Authentication" />
+        </HBox>
+    </bottom>
+
+</BorderPane>
