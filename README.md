@@ -1,8 +1,8 @@
-=======
 # Hệ Thống Đấu Giá Trực Tuyến (Online Auction System)
 
 > Bài tập lớn môn Lập trình nâng cao (LTNC 2026)  
-> Công nghệ: **Java 25**, **JavaFX 25**, **Maven**, **TCP Socket & Serialization**
+> Công nghệ: **Java 25**, **JavaFX 25**, **Maven**, **TCP Socket & Serialization**  
+> Root Package chuẩn: **`com.auction`**
 
 ---
 
@@ -23,33 +23,39 @@ auction-system-java/
 ├── config/
 │   └── checkstyle.xml          # Quy ước chuẩn mã nguồn nhóm (Checkstyle 3.6.0)
 ├── data/
-│   └── .gitkeep                # Thư mục lưu snapshot trạng thái hệ thống (snapshot.bin)
+│   └── .gitkeep                # Thư mục lưu snapshot trạng thái hệ thống (snapshot.dat)
 ├── docs/
 │   ├── protocol.md             # Hợp đồng giao thức mạng (Request, Response, Event)
 │   ├── permissions.md          # Ma trận phân quyền các command theo vai trò
 │   └── test-report.md          # Báo cáo kịch bản kiểm thử và độ phủ
 ├── src/
 │   ├── main/
-│   │   ├── java/vn/auction/
+│   │   ├── java/com/auction/
 │   │   │   ├── client/         # Phía Client (JavaFX + MVC)
-│   │   │   │   ├── controller/ # [TV3, TV4] Controllers điều khiển GUI
+│   │   │   │   ├── controller/ # [TV3, TV4] Controllers điều khiển GUI (Login, Register...)
+│   │   │   │   ├── model/      # [TV3, TV4] Model phía Client (ClientSession...)
 │   │   │   │   ├── network/    # [TV3] NetworkClient giao tiếp Socket
+│   │   │   │   ├── util/       # [TV3] SceneNavigator, Screen, AlertUtil
 │   │   │   │   ├── viewmodel/  # [TV3] ViewModel cho UI
 │   │   │   │   └── ClientApp.java # [TV3] Điểm khởi chạy JavaFX Client
 │   │   │   ├── common/         # Module dùng chung cả Client & Server
 │   │   │   │   ├── dto/        # [TV2] Request, Response, Payload, Snapshot DTO
 │   │   │   │   ├── exception/  # [TV1, TV4] Ngoại lệ nghiệp vụ
 │   │   │   │   ├── model/      # [TV1: Auction, Bid; TV4: User, Item]
-│   │   │   │   └── protocol/   # [TV2] Command, EventType, ErrorCode, AuctionObserver
+│   │   │   │   ├── protocol/   # [TV2] Command, EventType, ErrorCode, AuctionObserver
+│   │   │   │   └── util/       # [TV4, TV2] Tiện ích dùng chung (HashUtil băm SHA-256)
 │   │   │   └── server/         # Phía Server (TCP Socket & Engine)
-│   │   │       ├── dao/        # [TV2] SnapshotDao, SystemSnapshot lưu trữ file
-│   │   │       ├── network/    # [TV2] ServerSocket, ClientHandler, RealtimeHub
+│   │   │       ├── core/       # [TV1: Core Engine] Concurrency Locking, State Machine, Anti-sniping
+│   │   │       ├── dao/        # [TV2] SnapshotDao, SystemSnapshot lưu trữ file (snapshot.dat)
+│   │   │       ├── network/    # [TV2] ServerSocket, ClientHandler đa luồng, RealtimeHub
 │   │   │       ├── service/    # [TV1: AuctionService; TV4: AuthService, ItemService]
 │   │   │       └── ServerMain.java # [TV2] Điểm khởi chạy Server
 │   │   └── resources/
-│   │       └── fxml/           # Giao diện FXML (TV3, TV4)
+│   │       ├── fxml/           # Giao diện FXML (LoginView, RegisterView, main.fxml)
+│   │       ├── css/            # Stylesheet giao diện
+│   │       └── images/         # Hình ảnh logo và icon
 │   └── test/
-│       └── java/vn/auction/    # Unit tests & Integration tests
+│       └── java/com/auction/   # Unit tests & Integration tests
 │           ├── SampleTest.java
 │           └── common/
 │               └── ProtocolCodecTest.java
@@ -60,15 +66,18 @@ auction-system-java/
 
 ---
 
-## 3. Phân công trách nhiệm theo Module (Quy ước Bước C2)
+## 3. Phân công trách nhiệm theo Module
 
 | Thư mục / Gói | Thành viên phụ trách | Nội dung chính |
 |---|---|---|
 | `common/dto`, `common/protocol` | **TV2** | Request, Response, Event, payload, mã lỗi, Observer interface |
 | `common/exception`, `common/model` | **TV1**, **TV4** | Model Auction/Bid (TV1); User/Item (TV4); Custom Exceptions |
+| `common/util` | **TV4**, **TV2** | Băm mật khẩu (HashUtil), tiện ích format dữ liệu dùng chung |
+| `server/core` | **TV1** | Concurrency Locking, State Machine, Anti-sniping, Auto-bidding |
 | `server/network`, `server/dao` | **TV2** | ServerSocket, ClientHandler đa luồng, RealtimeHub broadcast, SnapshotDao |
 | `server/service` | **TV1**, **TV4** | AuctionService/Manager (TV1); AuthService, UserService, ItemService (TV4) |
 | `client/network`, `client/controller` | **TV3**, **TV4** | Kết nối mạng & GUI chính (TV3); Form Login/Register/Quản lý (TV4) |
+| `client/model`, `client/util` | **TV3**, **TV4** | ClientSession, SceneNavigator điều hướng màn hình |
 | `client/viewmodel`, `resources/fxml` | **TV3** | Khung MVC/MVVM; các file fxml màn hình |
 
 ---
@@ -82,9 +91,10 @@ mvn clean verify
 
 ### 4.2. Khởi chạy Server (Terminal 1)
 ```bash
-mvn exec:java -Dexec.mainClass=vn.auction.server.ServerMain
+mvn exec:java -Dexec.mainClass=com.auction.server.ServerMain
 ```
-> Có thể tùy chỉnh cổng: `mvn exec:java -Dexec.mainClass=vn.auction.server.ServerMain -Dauction.port=5050`
+> Tùy chỉnh cổng: `-Dauction.port=5050`  
+> Tùy chỉnh file lưu trữ: `-Dauction.file=data/snapshot.dat` (mặc định: `data/snapshot.dat`)
 
 ### 4.3. Khởi chạy Client JavaFX (Terminal 2, 3...)
 ```bash
@@ -99,5 +109,3 @@ Chạy cụ thể class test:
 ```bash
 mvn -Dtest=ProtocolCodecTest test
 ```
-
->>>>>>> Stashed changes
