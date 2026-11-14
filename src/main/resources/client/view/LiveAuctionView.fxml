@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane prefHeight="750.0" prefWidth="1150.0" style="-fx-background-color: #0b111e;"
+            stylesheets="@../css/table-dark.css"
+            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.auction.client.controller.LiveAuctionController">
+
+    <!-- TOP BAR -->
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="16.0"
+              style="-fx-background-color: #151f32; -fx-padding: 12 24; -fx-border-color: rgba(255,255,255,0.06); -fx-border-width: 0 0 1 0;">
+            <Button onAction="#onLeaveRoom" prefHeight="34.0"
+                    style="-fx-background-color: #1e293b; -fx-text-fill: #38bdf8; -fx-font-weight: bold; -fx-background-radius: 8; -fx-cursor: hand;"
+                    text="&lt; Rời phòng đấu giá" />
+            
+            <VBox>
+                <Label fx:id="roomTitleLabel" style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: white;" text="PHÒNG ĐẤU GIÁ TRỰC TIẾP" />
+                <Label fx:id="roomSubtitleLabel" style="-fx-font-size: 11px; -fx-text-fill: #64748b;" text="Mã phiên: #A001 | Chủ tài sản: seller" />
+            </VBox>
+
+            <Region HBox.hgrow="ALWAYS" />
+
+            <Label fx:id="sessionRoleBadge" style="-fx-font-size: 11px; -fx-text-fill: #38bdf8; -fx-background-color: rgba(56,189,248,0.15); -fx-padding: 3 8; -fx-background-radius: 4; -fx-font-weight: bold;" text="VAI TRÒ: BIDDER" />
+        </HBox>
+    </top>
+
+    <!-- CENTER BODY (2 CỘT) -->
+    <center>
+        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" style="-fx-background: transparent; -fx-background-color: transparent;">
+            <padding>
+                <Insets bottom="24.0" left="24.0" right="24.0" top="18.0" />
+            </padding>
+
+            <HBox alignment="TOP_CENTER" spacing="22.0">
+
+                <!-- CỘT TRÁI (GIÁ HIỆN TẠI, BẢNG ĐẶT GIÁ & BIỂU ĐỒ LINECHART) -->
+                <VBox prefWidth="640.0" spacing="16.0">
+
+                    <!-- KHỐI 1: GIÁ HIỆN TẠI VÀ THÔNG SỐ ĐẶT GIÁ -->
+                    <VBox spacing="12.0" style="-fx-background-color: #151f32; -fx-background-radius: 16; -fx-padding: 20; -fx-border-color: rgba(255,255,255,0.08); -fx-border-radius: 16;">
+                        <HBox alignment="CENTER_LEFT">
+                            <VBox spacing="2.0">
+                                <Label style="-fx-text-fill: #94a3b8; -fx-font-size: 12px; -fx-font-weight: bold;" text="GIÁ HIỆN TẠI CAO NHẤT" />
+                                <Label fx:id="livePriceLabel" style="-fx-text-fill: #38bdf8; -fx-font-size: 34px; -fx-font-weight: bold;" text="0 VNĐ" />
+                            </VBox>
+                            <Region HBox.hgrow="ALWAYS" />
+                            <VBox alignment="CENTER_RIGHT" spacing="4.0">
+                                <Label style="-fx-text-fill: #64748b; -fx-font-size: 11px;" text="Bước giá tối thiểu" />
+                                <Label fx:id="stepPriceLabel" style="-fx-text-fill: #34d399; -fx-font-size: 14px; -fx-font-weight: bold;" text="+0 VNĐ" />
+                            </VBox>
+                        </HBox>
+
+                        <!-- Người đang dẫn đầu -->
+                        <HBox alignment="CENTER_LEFT" spacing="8.0" style="-fx-background-color: #1e293b; -fx-background-radius: 8; -fx-padding: 8 12;">
+                            <Label style="-fx-text-fill: #94a3b8; -fx-font-size: 12px;" text="Đang dẫn đầu:" />
+                            <Label fx:id="leadingBidderLabel" style="-fx-text-fill: #facc15; -fx-font-size: 13px; -fx-font-weight: bold;" text="Chưa có ai đặt giá" />
+                        </HBox>
+
+                        <Separator opacity="0.08" />
+
+                        <!-- VÙNG THAO TÁC ĐẶT GIÁ CHO BIDDER -->
+                        <VBox fx:id="bidderActionArea" spacing="10.0">
+                            <Label style="-fx-text-fill: #cbd5e1; -fx-font-size: 12.5px; -fx-font-weight: bold;" text="Nhập mức giá bạn muốn đặt (VNĐ):" />
+                            
+                            <!-- Hàng nhập giá và nút Bid -->
+                            <HBox spacing="10.0">
+                                <TextField fx:id="bidAmountField" prefHeight="44.0" promptText="VD: 940.000.000..."
+                                           style="-fx-background-color: #1e293b; -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-font-family: monospace; -fx-background-radius: 10; -fx-border-color: rgba(56,189,248,0.3); -fx-border-radius: 10; -fx-padding: 0 14;"
+                                           HBox.hgrow="ALWAYS" />
+                                <Button fx:id="placeBidButton" defaultButton="true" onAction="#onPlaceBid" prefHeight="44.0" prefWidth="170.0"
+                                        style="-fx-background-color: linear-gradient(to right, #0099ff, #2563eb); -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px; -fx-background-radius: 10; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(0,153,255,0.4), 14, 0.1, 0, 4);"
+                                        text="ĐẶT GIÁ (BID)" />
+                            </HBox>
+
+                            <!-- Nút bấm tăng giá nhanh (Quick Bid) -->
+                            <HBox alignment="CENTER_LEFT" spacing="8.0">
+                                <Label style="-fx-text-fill: #64748b; -fx-font-size: 11.5px;" text="Tăng nhanh:" />
+                                <Button onAction="#onQuickBidPlus1" prefHeight="28.0" style="-fx-background-color: #1e293b; -fx-text-fill: #cbd5e1; -fx-font-size: 11px; -fx-background-radius: 6; -fx-cursor: hand;" text="+1 bước" />
+                                <Button onAction="#onQuickBidPlus2" prefHeight="28.0" style="-fx-background-color: #1e293b; -fx-text-fill: #cbd5e1; -fx-font-size: 11px; -fx-background-radius: 6; -fx-cursor: hand;" text="+2 bước" />
+                                <Button onAction="#onQuickBidPlus5" prefHeight="28.0" style="-fx-background-color: #1e293b; -fx-text-fill: #cbd5e1; -fx-font-size: 11px; -fx-background-radius: 6; -fx-cursor: hand;" text="+5 bước" />
+                            </HBox>
+
+                            <!-- Thông báo trạng thái đặt giá (Thành công / Lỗi hiển thị đỏ rõ ràng) -->
+                            <HBox fx:id="bidMessageBox" alignment="CENTER_LEFT" managed="false" style="-fx-padding: 8 12; -fx-background-radius: 8;" visible="false">
+                                <Label fx:id="bidMessageLabel" style="-fx-font-size: 12.5px; -fx-font-weight: bold;" text="" wrapText="true" />
+                            </HBox>
+                        </VBox>
+
+                        <!-- VÙNG CHẾ ĐỘ GIÁM SÁT DÀNH CHO ADMIN / SELLER -->
+                        <VBox fx:id="monitorOnlyArea" alignment="CENTER" managed="false" spacing="10.0"
+                              style="-fx-background-color: #1e293b; -fx-padding: 14; -fx-background-radius: 10; -fx-border-color: rgba(244,63,94,0.3); -fx-border-radius: 10;"
+                              visible="false">
+                            <Label fx:id="monitorMessageLabel" style="-fx-text-fill: #cbd5e1; -fx-font-size: 13px; -fx-font-weight: bold;" text="Chế độ Giám sát: Bạn là Admin / Chủ phiên, không được phép tham gia đặt giá." wrapText="true" />
+                            <Button fx:id="adminCancelAuctionBtn" onAction="#onAdminCancelAuction" prefHeight="36.0" prefWidth="220.0"
+                                    style="-fx-background-color: rgba(244,63,94,0.2); -fx-text-fill: #f43f5e; -fx-font-weight: bold; -fx-background-radius: 8; -fx-border-color: rgba(244,63,94,0.5); -fx-border-radius: 8; -fx-cursor: hand;"
+                                    text="HỦY PHIÊN NÀY (ADMIN)" visible="false" managed="false" />
+                        </VBox>
+                    </VBox>
+
+                    <!-- KHỐI 2: BIỂU ĐỒ LINECHART BIỂU DIỄN BIẾN ĐỘNG GIÁ REALTIME (STT 9) -->
+                    <VBox spacing="8.0" style="-fx-background-color: #151f32; -fx-background-radius: 16; -fx-padding: 16; -fx-border-color: rgba(255,255,255,0.08); -fx-border-radius: 16;">
+                        <Label style="-fx-text-fill: #94a3b8; -fx-font-size: 12px; -fx-font-weight: bold;" text="BIỂU ĐỒ BIẾN ĐỘNG GIÁ REALTIME (STT 9)" />
+                        
+                        <LineChart fx:id="priceLineChart" animated="true" legendVisible="false" prefHeight="230.0"
+                                   style="-fx-background-color: transparent;">
+                            <xAxis>
+                                <CategoryAxis fx:id="xAxis" label="Lượt đặt giá" side="BOTTOM"
+                                              style="-fx-tick-label-fill: #94a3b8; -fx-font-size: 11px;" />
+                            </xAxis>
+                            <yAxis>
+                                <NumberAxis fx:id="yAxis" label="Mức giá" side="LEFT"
+                                            style="-fx-tick-label-fill: #94a3b8; -fx-font-size: 11px;" />
+                            </yAxis>
+                        </LineChart>
+                    </VBox>
+
+                </VBox>
+
+                <!-- CỘT PHẢI (ĐỒNG HỒ ĐẾM NGƯỢC, BANNER KẾT THÚC & BẢNG LỊCH SỬ ĐẶT GIÁ) -->
+                <VBox prefWidth="430.0" spacing="16.0">
+
+                    <!-- KHỐI 1: ĐỒNG HỒ ĐẾM NGƯỢC REALTIME (STT 8) -->
+                    <VBox alignment="CENTER" spacing="8.0"
+                          style="-fx-background-color: #151f32; -fx-background-radius: 16; -fx-padding: 18; -fx-border-color: rgba(255,255,255,0.08); -fx-border-radius: 16;">
+                        <HBox alignment="CENTER" spacing="10.0">
+                            <Label style="-fx-text-fill: #94a3b8; -fx-font-size: 12px; -fx-font-weight: bold;" text="THỜI GIAN CÒN LẠI (SERVER)" />
+                            <Label fx:id="statusBadge" style="-fx-background-color: rgba(34,197,94,0.18); -fx-text-fill: #4ade80; -fx-padding: 2 6; -fx-background-radius: 4; -fx-font-size: 10px; -fx-font-weight: bold;" text="RUNNING" />
+                        </HBox>
+
+                        <!-- Đồng hồ số to đổi màu theo độ khẩn cấp -->
+                        <Label fx:id="liveTimerLabel" style="-fx-text-fill: #facc15; -fx-font-size: 36px; -fx-font-weight: bold; -fx-font-family: monospace;" text="00:02:15" />
+                        <Label fx:id="antiSnipingNotice" style="-fx-text-fill: #38bdf8; -fx-font-size: 11px;" text="Cơ chế Anti-sniping đang kích hoạt (gia hạn khi bid ở giây cuối)" />
+                    </VBox>
+
+                    <!-- BANNER KHI PHIÊN KẾT THÚC (MẶC ĐỊNH ẨN) -->
+                    <VBox fx:id="winnerBannerBox" alignment="CENTER" managed="false" spacing="4.0"
+                          style="-fx-background-color: rgba(34,197,94,0.15); -fx-border-color: rgba(34,197,94,0.35); -fx-border-radius: 12; -fx-padding: 14; -fx-background-radius: 12;"
+                          visible="false">
+                        <Label style="-fx-text-fill: #4ade80; -fx-font-size: 14px; -fx-font-weight: bold;" text="PHIÊN ĐẤU GIÁ ĐÃ KẾT THÚC!" />
+                        <Label fx:id="winnerTextLabel" style="-fx-text-fill: white; -fx-font-size: 13px;" text="Người thắng: bidder_pro | Giá chốt: 68.500.000 VNĐ" />
+                    </VBox>
+
+                    <!-- KHỐI 2: BẢNG LỊCH SỬ ĐẶT GIÁ REALTIME (STT 7) -->
+                    <VBox spacing="10.0" style="-fx-background-color: #151f32; -fx-background-radius: 16; -fx-padding: 16; -fx-border-color: rgba(255,255,255,0.08); -fx-border-radius: 16;" VBox.vgrow="ALWAYS">
+                        <HBox alignment="CENTER_LEFT">
+                            <Label style="-fx-text-fill: #94a3b8; -fx-font-size: 12px; -fx-font-weight: bold;" text="LỊCH SỬ ĐẶT GIÁ" />
+                            <Region HBox.hgrow="ALWAYS" />
+                            <Label fx:id="bidHistoryCountLabel" style="-fx-text-fill: #38bdf8; -fx-font-size: 11.5px; -fx-font-weight: bold;" text="0 lượt" />
+                        </HBox>
+
+                        <TableView fx:id="historyTable" prefHeight="290.0">
+                            <columns>
+                                <TableColumn fx:id="timeCol" prefWidth="85.0" text="Thời gian" />
+                                <TableColumn fx:id="bidderCol" prefWidth="110.0" text="Người đặt" />
+                                <TableColumn fx:id="amountCol" prefWidth="125.0" text="Mức giá (VNĐ)" />
+                                <TableColumn fx:id="statusCol" prefWidth="90.0" text="Trạng thái" />
+                            </columns>
+                            <placeholder>
+                                <Label style="-fx-text-fill: #64748b; -fx-font-size: 12px;" text="Chưa có lượt đặt giá nào" />
+                            </placeholder>
+                        </TableView>
+                    </VBox>
+
+                </VBox>
+
+            </HBox>
+        </ScrollPane>
+    </center>
+
+</BorderPane>

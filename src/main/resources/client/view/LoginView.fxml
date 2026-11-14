@@ -45,7 +45,7 @@
                     <!-- Tên đăng nhập -->
                     <VBox spacing="6.0">
                         <Label style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #94a3b8;" text="Tên đăng nhập" />
-                        <TextField fx:id="usernameField" prefHeight="42.0" promptText="ADMIN/BIDDER/SELLER" style="-fx-background-color: #1e2b42;                                           -fx-text-fill: white;                                           -fx-prompt-text-fill: #5a6e85;                                           -fx-background-radius: 10;                                           -fx-border-color: rgba(255, 255, 255, 0.06);                                           -fx-border-radius: 10;                                           -fx-padding: 0 14;" />
+                        <TextField fx:id="usernameField" prefHeight="42.0" promptText="Nhập tên đăng nhập" style="-fx-background-color: #1e2b42;                                           -fx-text-fill: white;                                           -fx-prompt-text-fill: #5a6e85;                                           -fx-background-radius: 10;                                           -fx-border-color: rgba(255, 255, 255, 0.06);                                           -fx-border-radius: 10;                                           -fx-padding: 0 14;" />
                     </VBox>
 
                     <!-- Mật khẩu -->

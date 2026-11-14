@@ -8,7 +8,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import java.io.InputStream;
 
-public class ClientApp extends Application {
+public class    ClientApp extends Application {
 
     @Override
     public void start(Stage stage) {

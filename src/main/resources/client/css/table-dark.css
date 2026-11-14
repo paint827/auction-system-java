@@ -1,0 +1,92 @@
+/* CSS Tối ưu giao diện TableView và LineChart chuẩn Dark Theme */
+
+.table-view {
+    -fx-background-color: #1e293b;
+    -fx-background-radius: 10;
+    -fx-border-color: rgba(255, 255, 255, 0.08);
+    -fx-border-radius: 10;
+}
+
+/* Nền tiêu đề Header của Bảng (Khắc phục hoàn toàn lỗi lóa máy chiếu) */
+.table-view .column-header-background {
+    -fx-background-color: #0e1726;
+    -fx-background-radius: 10 10 0 0;
+    -fx-padding: 0;
+}
+
+.table-view .column-header {
+    -fx-background-color: #0e1726;
+    -fx-border-color: rgba(255, 255, 255, 0.08);
+    -fx-border-width: 0 1 1 0;
+    -fx-padding: 10 8;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: #38bdf8;
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+    -fx-alignment: CENTER_LEFT;
+}
+
+/* Dòng dữ liệu trong bảng */
+.table-view .table-row-cell {
+    -fx-background-color: #151f32;
+    -fx-border-color: rgba(255, 255, 255, 0.03);
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 2 0;
+}
+
+.table-view .table-row-cell:odd {
+    -fx-background-color: #1a2538;
+}
+
+.table-view .table-row-cell:filled:hover {
+    -fx-background-color: #223249;
+}
+
+.table-view .table-cell {
+    -fx-text-fill: #e2e8f0;
+    -fx-font-size: 12px;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 0 10;
+}
+
+.table-view .placeholder .label {
+    -fx-text-fill: #64748b;
+    -fx-font-size: 12px;
+}
+
+/* Thanh cuộn Dark */
+.table-view .scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+
+.table-view .scroll-bar:vertical .thumb {
+    -fx-background-color: #334155;
+    -fx-background-radius: 4;
+}
+
+/* Định dạng LineChart */
+.chart-plot-background {
+    -fx-background-color: transparent;
+}
+
+.chart-vertical-grid-lines {
+    -fx-stroke: rgba(255, 255, 255, 0.04);
+}
+
+.chart-horizontal-grid-lines {
+    -fx-stroke: rgba(255, 255, 255, 0.06);
+}
+
+.chart-series-line {
+    -fx-stroke: #38bdf8;
+    -fx-stroke-width: 2.5px;
+}
+
+.chart-line-symbol {
+    -fx-background-color: #38bdf8, white;
+    -fx-background-insets: 0, 2;
+    -fx-background-radius: 5px;
+    -fx-padding: 5px;
+}

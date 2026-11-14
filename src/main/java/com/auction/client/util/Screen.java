@@ -4,6 +4,7 @@ public enum Screen {
     LOGIN("LoginView.fxml", "Đăng nhập"),
     REGISTER("RegisterView.fxml", "Tạo tài khoản"),
     AUCTION_LIST("AuctionListView.fxml", "Danh sách phiên đấu giá"),
+    PRODUCT_DETAIL("ProductDetailView.fxml", "Chi tiết sản phẩm"),
     LIVE_AUCTION("LiveAuctionView.fxml", "Đấu giá trực tiếp");
 
     public static final String BASE_PATH = "/client/view/";
@@ -16,17 +17,7 @@ public enum Screen {
         this.title = title;
     }
 
-    public String getFxml() {
-        return fxml;
-    }
-    public String getTitle() {
-        return title;
-    }
-
-    /**
-     * Trả về đường dẫn đầy đủ từ classpath để nạp FXML
-     */
-    public String getFullPath() {
-        return BASE_PATH + fxml;
-    }
+    public String getFxml() { return fxml; }
+    public String getTitle() { return title; }
+    public String getFullPath() { return BASE_PATH + fxml; }
 }

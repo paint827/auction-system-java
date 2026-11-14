@@ -1,6 +1,6 @@
 package com.auction.client.controller;
 
-import com.auction.client.model.ClientSession;
+import com.auction.client.model.MockUserStore;
 import com.auction.client.util.SceneNavigator;
 import com.auction.client.util.Screen;
 import javafx.collections.FXCollections;
@@ -43,6 +43,15 @@ public class RegisterController implements ScreenController {
         });
     }
 
+    @Override
+    public void onShow(Object data) {
+        // Làm mới form khi mở lại màn đăng ký
+        if (usernameField != null) usernameField.clear();
+        if (passwordField != null) passwordField.clear();
+        if (confirmPasswordField != null) confirmPasswordField.clear();
+        if (statusLabel != null) statusLabel.setText("");
+    }
+
     @FXML
     private void onRegister() {
         String username = usernameField.getText() == null ? "" : usernameField.getText().trim();
@@ -71,24 +80,31 @@ public class RegisterController implements ScreenController {
             return;
         }
 
-        // Chuyển đổi role sang mã chuẩn hệ thống
-        String roleCode = selectedRole.contains("SELLER") ? "SELLER" : "BIDDER";
+        // Kiểm tra trùng username
+        if (MockUserStore.exists(username)) {
+            showError("Tên đăng nhập '" + username + "' đã tồn tại! Vui lòng chọn tên khác.");
+            return;
+        }
 
-        // 2. Thông báo thành công và chuyển thẳng vào hệ thống
+        // Chuyển đổi role sang mã chuẩn hệ thống
+        String roleCode = (selectedRole != null && selectedRole.contains("SELLER")) ? "SELLER" : "BIDDER";
+
+        // Lưu vào MockUserStore để màn Đăng nhập có thể xác thực được ngay
+        boolean registered = MockUserStore.register(username, password, roleCode);
+        if (!registered) {
+            showError("Không thể đăng ký tài khoản lúc này, vui lòng thử lại!");
+            return;
+        }
+
+        // 2. Thông báo thành công
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Đăng ký thành công");
         alert.setHeaderText(null);
-        alert.setContentText("Chúc mừng " + username + "! Tài khoản vai trò [" + roleCode + "] đã được tạo thành công.");
+        alert.setContentText("Chúc mừng bạn đã tạo tài khoản [" + username + "] thành công!\nHệ thống sẽ chuyển về màn hình Đăng nhập.");
         alert.showAndWait();
 
-        // Tự động đăng nhập vào ClientSession và chuyển sang màn danh sách phiên
-        ClientSession.getInstance().login(username, roleCode);
-        SceneNavigator.goTo(Screen.AUCTION_LIST);
-
-        /*
-         * Ghi chú tích hợp sau này khi TV2 & TV4 xong:
-         * NetworkClient.getInstance().register(username, HashUtil.hash(password), roleCode);
-         */
+        // 3. Quay lại màn hình Đăng nhập (Screen.LOGIN) và truyền username vừa tạo sang
+        SceneNavigator.goTo(Screen.LOGIN, username);
     }
 
     @FXML
